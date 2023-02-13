@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description=" content="Welcome to HomeInspo! A platform to get inspired and inspire others. All styles and tastes are appriciated.">
+    <title>HomeInspo</title>
+    <link rel="stylesheet" href="dist/styles.css">
+    <script src="https://kit.fontawesome.com/14580da1e1.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="col-12 position-fixed top-0">
+        <nav class="navbar navbar-expand-md">
+            <div class="container">
+                <a href="index.html" class="navbar-brand"><i class="fa-solid fa-hand-holding-heart me-2"></i>HomeInspo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-expanded="false" aria-controls="#nav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="nav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="profile.html" class="nav-link">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="login.html" class="nav-link">Log in</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container pt-5">
+            <div class="row pt-4">
+                <div class="col-10 col-xl-6 col-lg-6 col-md-6">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#new-post" aria-expanded="false" aria-controls="new-post">New post +</button>
+                    <div class="collapse" id="new-post">
+                        <div class="container">
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-9">
+                                    <form class="mb-5">
+                                        <label for="upload-image" class="mt-3">Choose your image</label>
+                                        <input type="file" name="upload-image" id="upload-image" class="form-control">
+                                        <label for="caption" class="mt-3">Caption</label>
+                                        <textarea name="caption" id="caption" rows="3" class="form-control"></textarea>
+                                        <button class="btn btn-primary mt-3">Upload image</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 col-xl-6 col-lg-6 col-md-6 d-flex justify-content-end">
+                    <form class="d-flex align-items-center">
+                        <input type="text" id="search" name="search" placeholder="Search" class="form-control me-2 hidden-mobile">
+                        <label for="search"><button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></button></i></label>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-6 col-lg-10 col-md-12">
+                    <h1 class="my-4">Recent updates</h1>
+                    <div class="border">
+                        <div class="container m-0">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-1 m-0 p-0">
+                                    <img src="images/gillian.jpg" alt="Username: gillian_johnson" class="img-fluid">
+                                </div>
+                                <div class="col-10">
+                                    <p class="pb-0 mb-0">gillian_johnson</p>
+                                </div>
+                                <div class="col-1">
+                                    <h4 class="mb-0 mt-1"><i class="fa-regular fa-heart"></i></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <img src="images/bedroom-web.jpg" alt="Bedroom with light chalk paint" class="p-0">
+                            </div>
+                            <div class="row">
+                                <p class="mt-2">Felt really inspired by this hotel room I stayed in last week. If you ever go to Miami, make sure you book a room at The Medusa. </p>
+                                <p class="mt-2">Posted 1 hour ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-xl-6 col-lg-10 col-md-12">
+                    <div class="border">
+                        <div class="container m-0">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-1 m-0 p-0">
+                                    <img src="images/peter.jpg" alt="Username: peter_plant" class="img-fluid">
+                                </div>
+                                <div class="col-10">
+                                    <p class="pb-0 mb-0">peter_plant</p>
+                                </div>
+                                <div class="col-1">
+                                    <h4 class="mb-0 mt-1"><i class="fa-regular fa-heart"></i></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <img src="images/bathroom-web.jpg" alt="Bathroom with a plant" class="p-0">
+                            </div>
+                            <div class="row">
+                                <p class="mt-2">My Strelitzia has never been more happy. Humidity levels are way better in the 
+                                    bathroom. #happyboy </p>
+                                <p class="mt-2">Posted yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 d-flex justify-content-center">
+                <div class="col-xl-6 col-lg-10 col-md-12">
+                    <div class="border">
+                        <div class="container m-0">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-1 m-0 p-0">
+                                    <img src="images/gillian.jpg" alt="Username: gillian_johnson" class="img-fluid">
+                                </div>
+                                <div class="col-10">
+                                    <p class="mb-0 pb-0">gillian_johnson</p>
+                                </div>
+                                <div class="col-1">
+                                    <h4 class="mb-0 mt-1"><i class="fa-regular fa-heart"></i></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <img src="images/pool-area-web.jpg" alt="Chairs by the pool" class="p-0">
+                            </div>
+                            <div class="row">
+                                <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, laudantium ducimus ut incidunt veritatis deleniti! Doloribus error numquam veniam! Quia.</p>
+                                <p class="mt-2">Posted yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 d-flex justify-content-center">
+                <div class="col-xl-6 col-lg-10 col-md-12">
+                    <div class="border">
+                        <div class="container m-0">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-1 m-0 p-0">
+                                    <img src="images/gillian.jpg" alt="Username: gillian_johnson" class="img-fluid">
+                                </div>
+                                <div class="col-10 align-content-center">
+                                    <p class="mb-0 pb-0">gillian_johnson</p>
+                                </div>
+                                <div class="col-1">
+                                    <h4 class="mb-0 mt-1"><i class="fa-regular fa-heart"></i></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <img src="images/bedroom-2-web.jpg" alt="Bedroom with plants and mint coloured walls" class="p-0">
+                            </div>
+                            <div class="row">
+                                <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit neque dolore quam quia? </p>
+                                <p class="mt-2">Posted 10.01.23</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center align-items-center flex-column">
+                    <a href="#top" class="link-secondary">
+                        <h3 class="ms-2 mb-0 ps-3"><i class="fa-solid fa-caret-up"></i></h3>
+                        <p>To the top</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="mt-5">
+        <nav class="navbar navbar-expand-md">
+            <div class="container d-flex justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.html" class="nav-link">Log in</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <p class="d-flex justify-content-center m-0 p-3">Copyright</p>
+    </footer>
+    <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>

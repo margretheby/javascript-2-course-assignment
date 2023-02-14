@@ -1,3 +1,20 @@
 @import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+header, footer {
+  background-color: #DEEFD6;
+}
+
+h1, h2, h3, h4 {
+  color: #697463;
+}
+
+.btn-primary {
+  background-color: #697463;
+  border-color: #697463;
+}
+
+.btn-primary:hover, .btn-primary:disabled {
+  background-color: rgba(105, 116, 99, 0.5960784314);
+  border-color: rgba(105, 116, 99, 0.5960784314);
+}
 
 /*# sourceMappingURL=styles.css.map */

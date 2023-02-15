@@ -38,13 +38,25 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-xl-4 col-lg-6 col-md-7 col-sm-7">
                     <h1 class="py-5 mt-4">Create account</h1>
-                    <form action="profile.html"> 
-                        <label for="email"><h4>E-mail</h4></label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="example@gmail.com" required>
-                        <label for="password"><h4 class="mt-4">Password</h4></label>
-                        <input type="password" name="password" id="password" class="form-control" required>
+                    <form id="create-account" method="post"> 
+                        <label for="name"><h4>Username *</h4></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="my_username" title="Username must only have letters, numbers and underscore. Example: Bob_Dylan88" required pattern="^[\w]+$">
+
+                        <label for="email"><h4 class="mt-2">E-mail *</h4></label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="example@noroff.no" title="Must use a noroff e-mail. Example: teacher@noroff.no or studentname@stud.noroff.no" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$">
+
+                        <label for="password"><h4 class="mt-2">Password *</h4></label>
+                        <input type="password" name="password" id="password" class="form-control" required minlength="8">
+
+                        <label for="banner"><h4 class="mt-2">Banner</h4></label>
+                        <input type="url" name="banner" id="banner" class="form-control">
+
+                        <label for="avatar"><h4 class="mt-2">Avatar</h4></label>
+                        <input type="url" name="avatar" id="avatar" class="form-control">
+
+                        <p>* required fields</p>
                         <div class="d-flex flex-row align-items-center mt-3 flex-wrap">
-                            <button class="btn btn-primary ps-5 pe-5">Create account</button>
+                            <button class="btn btn-primary ps-5 pe-5 btn-create-account">Create account</button>
                             <p class="ms-3 mb-0">or 
                             <a href="login.html" class="link-secondary">log in</a> if you already have an account</p>
                         </div>
@@ -71,6 +83,7 @@
         </nav>
         <p class="d-flex justify-content-center m-0 p-3">Copyright</p>
     </footer>
+    <script type="module" defer src="js/create-account.mjs"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>

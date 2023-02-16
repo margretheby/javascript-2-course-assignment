@@ -12,7 +12,9 @@ export const loginUrl = BASE_URL + "auth/login"
 export const loginForm = document.querySelector("#login-form");
 export const loginError = document.querySelector(".login-error");
 
-
+// Index page
+export const postsUrl = BASE_URL + "posts";
+export const postsContainer = document.querySelector(".post-container");
 
 
 

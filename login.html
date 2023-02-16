@@ -66,9 +66,9 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-xl-4 col-lg-6 col-md-7 col-sm-7">
                     <h1 class="pb-5 mt-4">Log in</h1>
-                    <form action="profile.html"> 
+                    <form id="login-form"> 
                         <label for="email"><h4>E-mail</h4></label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="example@gmail.com" required>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="example@noroff.no" required>
                         <label for="password"><h4 class="mt-4">Password</h4></label>
                         <input type="password" name="password" id="password" class="form-control" required>
                         <div class="d-flex flex-row align-items-center mt-3 flex-wrap">
@@ -77,6 +77,9 @@
                             <a href="create-account.html" class="link-secondary">new account <i class="fa-solid fa-plus"></i></a></p>
                         </div>
                     </form>
+                    <div class="login-error mt-4">
+                        <p class="d-none">Ooobs! Something went wrong, are you sure you have an account here?</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,6 +102,7 @@
         </nav>
         <p class="d-flex justify-content-center m-0 p-3">Copyright</p>
     </footer>
+    <script src="js/login-account.mjs" type="module"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
 </html>

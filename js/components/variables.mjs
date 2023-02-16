@@ -8,6 +8,11 @@ export const createAccountForm = document.querySelector("#create-account");
 export const postMethod = "post";
 
 // Login page
-export const loginUserUrl = BASE_URL + "auth/login"
+export const loginUrl = BASE_URL + "auth/login"
+export const loginForm = document.querySelector("#login-form");
+export const loginError = document.querySelector(".login-error");
+
+
+
 
 

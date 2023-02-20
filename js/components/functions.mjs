@@ -101,7 +101,7 @@ export async function fetchPostsWithToken() {
         console.log(error)
     }
 }
-
+// function to display posts
 function displayPostsOnPage(post) {
     for (let i = 0; i < post.length; i++) {
         if (post[i].media) {

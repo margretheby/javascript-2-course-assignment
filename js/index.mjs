@@ -1,3 +1,4 @@
-import { fetchPostsWithToken } from "./components/functions.mjs"
+import { fetchPostsWithToken, setCreatePostListener, setUpdatePostListener } from "./components/functions.mjs"
 
 fetchPostsWithToken();
+setCreatePostListener();

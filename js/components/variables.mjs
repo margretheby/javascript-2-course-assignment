@@ -15,6 +15,16 @@ export const loginError = document.querySelector(".login-error");
 // Index page
 export const postsUrl = BASE_URL + "posts";
 export const postsContainer = document.querySelector(".post-container");
+export const createPostForm = document.querySelector(".create-post");
+
+// Specific post page
+export const postContainer = document.querySelector(".specific-post-container");
+
+// Creating URL Params
+export const params = new URLSearchParams(window.location.search);
+export const postID = params.get("postID");
+export const postIdUrl = `${postsUrl}/${postID}`;
+
 
 
 

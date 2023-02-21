@@ -1,4 +1,12 @@
-import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl } from "./variables.mjs";
+import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl, deletePostButton, logOut } from "./variables.mjs";
+
+// ------------------------- ALL PAGES
+// Log out
+export function setLogOut() {
+    logOut.addEventListener("click", (event) => {
+        localStorage.clear();
+    })
+}
 
 // ------------------------- CREATE ACCOUNT PAGE
 // Create account function
@@ -58,9 +66,7 @@ async function loginAccount(url, data) {
         };
         const response = await fetch(url, accountData);
         const result = await response.json();
-        console.log(result);
         const accessToken = result.accessToken;
-        console.log(accessToken);
 
         localStorage.setItem("accessToken", accessToken)
     } catch (error) {
@@ -107,9 +113,9 @@ function displayPostsOnPage(post) {
         if (post[i].media) {
             postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
-                <div class="col-xl-6 col-lg-10 col-md-12">
-                    <div class="border">
-                        <div class="container m-0">
+                <div class="col-xl-6 col-lg-10 col-md-12 p-0">
+                    <div class="border p-0">
+                        <div class="container m-0 pe-0">
                             <div class="row d-flex align-items-center">
                                 <div class="col-2 m-0 p-0">
                                     <p>[img]</p>
@@ -117,8 +123,8 @@ function displayPostsOnPage(post) {
                                 <div class="col-10">
                                     <p class="pb-0 mb-0">USERNAME</p>
                                 </div>
-                            <div class="row">
-                                <img src="${post[i].media}" alt="Image for the post: ${post[i].title}" class="p-0">
+                            <div class="row p-0">
+                                <img src="${post[i].media}" alt="Image for the post: ${post[i].title}" class="pe-0">
                             </div>
                             <div class="row">
                             <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
@@ -132,9 +138,9 @@ function displayPostsOnPage(post) {
         } else {
             postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
-                <div class="col-xl-6 col-lg-10 col-md-12">
-                    <div class="border">
-                        <div class="container m-0">
+                <div class="col-xl-6 col-lg-10 col-md-12 p-0">
+                    <div class="border p-0">
+                        <div class="container m-0 pe-0">
                             <div class="row d-flex align-items-center">
                                 <div class="col-2 m-0 p-0">
                                     <p>[img]</p>
@@ -143,10 +149,9 @@ function displayPostsOnPage(post) {
                                     <p class="pb-0 mb-0">USERNAME</p>
                                 </div>
                             <div class="row">
-                                <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
+                            <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
                                 <p class="mt-2 ps-4">${post[i].body}</p>
                                 <p class="mt-2 ps-4">Posted: ${post[i].created}</p>
-                            
                             </div>
                         </div>
                     </div>
@@ -168,6 +173,7 @@ export function setCreatePostListener() {
         const postInfo = Object.fromEntries(formData.entries());
 
         createPost(postInfo);
+
     })
 } 
 
@@ -184,6 +190,7 @@ async function createPost(post) {
         }
         const response = await fetch(postsUrl, postData);
         const result = await response.json();
+        window.location.href = "index.html";
     } catch(error) {
         console.log(error);
     }
@@ -253,30 +260,6 @@ function displaySpecificPost(post) {
                                 </div>
                                 <div class="col-10">
                                     <p class="pb-0 mb-0">USERNAME</p>
-                                </div>
-                                <div class="col-12">
-
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#edit-post-${post.id}" aria-expanded="false" aria-controls="edit-post-${post.id}">Edit</button>
-                                    <div class="collapse" id="edit-post-${post.id}">
-                                        <div class="container">
-                                            <div class="row d-flex justify-content-end">
-                                                <div class="col-10 mb-5">
-                                                    <form class="edit-post-form">
-                                                        <label for="id">Post ID</label>
-                                                        <textarea name="id" rows="1" class="form-control" disabled>${post.id}</textarea>
-                                                        <label for="media" class="mt-3">Image URL</label>
-                                                        <input type="url" name="media" id="update-media" class="form-control" value="${post.media}">
-                                                        <label for="title" class="mt-3">Title</label>
-                                                        <input type="text" name="title" id="update-title" class="form-control" value="${post.title}">
-                                                        <label for="body" class="mt-3">Caption</label>
-                                                        <textarea name="body" id="update-body" rows="4" class="form-control">${post.body}</textarea>
-                                                        <button class="btn btn-primary mt-3">Update post</button>
-                                                    </form>
-                                                    <button class="btn btn-danger mt-3" id="btn-delete">Delete post</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">

@@ -1,4 +1,4 @@
-import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl, deletePostButton, logOut } from "./variables.mjs";
+import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl, updateBody, updateMedia, updateTitle, deletePostButton, logOut } from "./variables.mjs";
 
 // ------------------------- ALL PAGES
 // Log out
@@ -215,18 +215,16 @@ async function updatePost(post) {
     try {
         const token = localStorage.getItem("accessToken")
         const postData = {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(post)
         }
-        console.log(postData)
         const response = await fetch(postIdUrl, postData)
-        console.log(response)
         const result = await response.json();
-        console.log(result);
+        location.reload();
     } catch(error) {
         console.log(error);
     }
@@ -328,6 +326,8 @@ function displaySpecificPost(post) {
             </div>
         </div>`;
     }
-
+    updateMedia.value = `${post.media}`
+    updateTitle.value = `${post.title}`
+    updateBody.value = `${post.body}`
 }
 

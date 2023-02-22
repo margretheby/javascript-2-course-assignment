@@ -21,6 +21,11 @@ export const postContainer = document.querySelector(".specific-post-container");
 export const updatePostButton = document.querySelector(".btn-update-post");
 export const deletePostButton = document.querySelector("#btn-delete-post");
 
+// Update post variables
+export const updateMedia = document.querySelector("#update-media");
+export const updateTitle = document.querySelector("#update-title");
+export const updateBody = document.querySelector("#update-body");
+
 // Creating URL Params
 export const params = new URLSearchParams(window.location.search);
 export const postID = params.get("postID");

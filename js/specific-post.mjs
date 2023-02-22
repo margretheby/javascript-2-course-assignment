@@ -1,14 +1,13 @@
 import { fetchSpecificPost, setUpdatePostListener } from "./components/functions.mjs";
-import { postIdUrl, deletePostButton, postID } from "./components/variables.mjs";
-
+import { postIdUrl, deletePostButton, postID, postContainer } from "./components/variables.mjs";
+console.log(postIdUrl)
 fetchSpecificPost(postIdUrl);
+setUpdatePostListener();
 
 // DELETE POST 
 
 deletePostButton.addEventListener("click", (event) => {
-    event.preventDefault();
     deletePost();
-    window.location.href = "index.html"
 });
 
 async function deletePost() {
@@ -26,5 +25,5 @@ async function deletePost() {
     } catch (error) {
         console.log(error);
     }
-}
+} 
 

@@ -1,4 +1,4 @@
-import { fetchPostsWithToken, setCreatePostListener, setUpdatePostListener, setLogOut } from "./components/functions.mjs"
+import { fetchPostsWithToken, setCreatePostListener, setLogOut } from "./components/functions.mjs"
 
 fetchPostsWithToken();
 setCreatePostListener();

@@ -130,6 +130,7 @@ function displayPostsOnPage(post) {
                             <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
                                 <p class="mt-2 ps-4">${post[i].body}</p>
                                 <p class="mt-2 ps-4">Posted: ${post[i].created}</p>
+                                <p class="mt-0 ps-4">Tags: ${post[i].tags}</p>
                             </div>
                         </div>
                     </div>
@@ -152,6 +153,7 @@ function displayPostsOnPage(post) {
                             <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
                                 <p class="mt-2 ps-4">${post[i].body}</p>
                                 <p class="mt-2 ps-4">Posted: ${post[i].created}</p>
+                                <p class="mt-0 ps-4">Tags: ${post[i].tags}</p>
                             </div>
                         </div>
                     </div>
@@ -160,7 +162,6 @@ function displayPostsOnPage(post) {
         }
 
     }
-    setUpdatePostListener();
 }
 
 // Create post function
@@ -214,14 +215,16 @@ async function updatePost(post) {
     try {
         const token = localStorage.getItem("accessToken")
         const postData = {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(post)
         }
-        const response = await fetch(postsUrl, postData)
+        console.log(postData)
+        const response = await fetch(postIdUrl, postData)
+        console.log(response)
         const result = await response.json();
         console.log(result);
     } catch(error) {
@@ -269,6 +272,8 @@ function displaySpecificPost(post) {
                             <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
                                 <p class="mt-2 ps-4">${post.body}</p>
                                 <p class="mt-2 ps-4">Posted: ${post.created}</p>
+                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                                
                             </div>
                         </div>
                     </div>
@@ -315,7 +320,8 @@ function displaySpecificPost(post) {
                         <div class="row">
                                 <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
                                 <p class="mt-2 ps-4">${post.body}</p>
-                                <p class="mt-2 ps-4">Posted: ${post.created}</p>                        
+                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
+                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>                        
                         </div>
                     </div>
                 </div>

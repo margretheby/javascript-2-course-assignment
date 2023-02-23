@@ -1,4 +1,4 @@
-import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl, updateBody, updateMedia, updateTitle, deletePostButton, logOut } from "./variables.mjs";
+import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl, searchForm, updateBody, updateMedia, updateTitle, deletePostButton, logOut } from "./variables.mjs";
 
 // ------------------------- ALL PAGES
 // Log out
@@ -74,15 +74,6 @@ async function loginAccount(url, data) {
     }
 }
 
-/* Not finished */
-function resultOfLogin (result) {
-    if (result) {
-        loginForm = (action = "/profile.html");
-    } else {
-        loginError.style.display = "block";
-    }
-}
-
 
 // ------------------------- INDEX PAGE
 
@@ -100,9 +91,9 @@ export async function fetchPostsWithToken() {
         
         const response = await fetch(postsUrl, getPosts);
         const result = await response.json();
-        console.log(result);
 
         displayPostsOnPage(result);
+        searchPosts(result);
     } catch (error) {
         console.log(error)
     }
@@ -117,11 +108,11 @@ function displayPostsOnPage(post) {
                     <div class="border p-0">
                         <div class="container m-0 pe-0">
                             <div class="row d-flex align-items-center">
-                                <div class="col-2 m-0 p-0">
-                                    <p>[img]</p>
+                                <div class="col-1 m-0 p-0">
+                                    <img src="${post[i].author.avatar}" class="img-thumbnail">
                                 </div>
-                                <div class="col-10">
-                                    <p class="pb-0 mb-0">USERNAME</p>
+                                <div class="col-11">
+                                    <p class="pb-0 mb-0 username">${post[i].author.name}</p>
                                 </div>
                             <div class="row p-0">
                                 <img src="${post[i].media}" alt="Image for the post: ${post[i].title}" class="pe-0">
@@ -143,11 +134,11 @@ function displayPostsOnPage(post) {
                     <div class="border p-0">
                         <div class="container m-0 pe-0">
                             <div class="row d-flex align-items-center">
-                                <div class="col-2 m-0 p-0">
-                                    <p>[img]</p>
+                                <div class="col-1 m-0 p-0">
+                                    <img src="${post[i].author.avatar}" class="img-thumbnail">
                                 </div>
-                                <div class="col-10">
-                                    <p class="pb-0 mb-0">USERNAME</p>
+                                <div class="col-11">
+                                    <p class="pb-0 mb-0 username">${post[i].author.name}</p>
                                 </div>
                             <div class="row">
                             <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
@@ -164,8 +155,78 @@ function displayPostsOnPage(post) {
     }
 }
 
-// Create post function
+// Search posts function
+function searchPosts(posts) {
+    searchForm.onkeyup = function (event) {
+        const searchValue = event.target.value.trim().toLowerCase();
+        const filteredSearch = posts.filter(function (posts) {
+            if (posts.title.toLowerCase().includes(searchValue)) {
+                return true;
+            }            
+        })
+        displaySearchResult(filteredSearch);
+    }
+}
 
+// Display the search 
+function displaySearchResult(posts) {
+    postsContainer.innerHTML = "";
+    posts.forEach(function (post) {
+        if (post.media) {
+            postsContainer.innerHTML += `
+            <div class="row d-flex justify-content-center my-5">
+                <div class="col-xl-6 col-lg-10 col-md-12 p-0">
+                    <div class="border p-0">
+                        <div class="container m-0 pe-0">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-1 m-0 p-0">
+                                    <img src="${post.author.avatar}" class="img-thumbnail">
+                                </div>
+                                <div class="col-11">
+                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
+                                </div>
+                            <div class="row p-0">
+                                <img src="${post.media}" alt="Image for the post: ${post.title}" class="pe-0">
+                            </div>
+                            <div class="row">
+                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
+                                <p class="mt-2 ps-4">${post.body}</p>
+                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
+                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        } else {
+            postsContainer.innerHTML += `
+            <div class="row d-flex justify-content-center my-5">
+                <div class="col-xl-6 col-lg-10 col-md-12 p-0">
+                    <div class="border p-0">
+                        <div class="container m-0 pe-0">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-1 m-0 p-0">
+                                    <img src="${post.author.avatar}" class="img-thumbnail">
+                                </div>
+                                <div class="col-11">
+                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
+                                </div>
+                            <div class="row">
+                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
+                                <p class="mt-2 ps-4">${post.body}</p>
+                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
+                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+    })
+}
+
+// Create post function
 export function setCreatePostListener() {
     createPostForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -230,6 +291,7 @@ async function updatePost(post) {
     }
 }
 
+// Fetch and display a specific post
 export async function fetchSpecificPost() {
     try {
         const token = localStorage.getItem("accessToken");
@@ -242,6 +304,7 @@ export async function fetchSpecificPost() {
         }
         const response = await fetch(postIdUrl, postData);
         const post = await response.json();
+        console.log(post);
         displaySpecificPost(post);
     } catch (error) {
         console.log(error);
@@ -256,11 +319,11 @@ function displaySpecificPost(post) {
                     <div class="border">
                         <div class="container m-0">
                             <div class="row d-flex align-items-center">
-                                <div class="col-2 m-0 p-0">
-                                    <p>[img]</p>
+                                <div class="col-1 m-0 p-0">
+                                    <img src="${post.author.avatar}" class="img-thumbnail">
                                 </div>
-                                <div class="col-10">
-                                    <p class="pb-0 mb-0">USERNAME</p>
+                                <div class="col-11">
+                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -284,47 +347,23 @@ function displaySpecificPost(post) {
                     <div class="border">
                         <div class="container m-0">
                             <div class="row d-flex align-items-center">
-                                <div class="col-2 m-0 p-0">
-                                    <p>[img]</p>
+                                <div class="col-1 m-0 p-0">
+                                    <img src="${post.author.avatar}" class="img-thumbnail">
                                 </div>
-                                <div class="col-10">
-                                    <p class="pb-0 mb-0">USERNAME</p>
+                                <div class="col-11">
+                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
                                 </div>
-                                <div class="col-12">
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#edit-post-${post.id}" aria-expanded="false" aria-controls="edit-post-${post.id}">Edit</button>
-                                <div class="collapse" id="edit-post-${post.id}">
-                                    <div class="container">
-                                        <div class="row d-flex justify-content-end">
-                                            <div class="col-10 mb-5">
-                                                <form class="edit-post-form">
-                                                    <label for="id">Post ID</label>
-                                                    <textarea name="id" rows="1" class="form-control" disabled>${post.id}</textarea>
-                                                    <label for="media" class="mt-3">Image URL</label>
-                                                    <input type="url" name="media" id="update-media" class="form-control" placeholder="https://pics.com/image.jpg">
-                                                    <label for="title" class="mt-3">Title</label>
-                                                    <input type="text" name="title" id="update-title" class="form-control" value="${post.title}">
-                                                    <label for="body" class="mt-3">Caption</label>
-                                                    <textarea name="body" id="update-body" rows="4" class="form-control">${post.body}</textarea>
-                                                    <button class="btn btn-primary mt-3">Update post</button>
-                                                </form>
-                                                <button class="btn btn-danger mt-3" id="btn-delete">Delete post</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                               
-                        </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                                <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
+                            </div>
+                            <div class="row">
+                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
                                 <p class="mt-2 ps-4">${post.body}</p>
                                 <p class="mt-2 ps-4">Posted: ${post.created}</p>
-                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>                        
+                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
     }
     updateMedia.value = `${post.media}`
     updateTitle.value = `${post.title}`

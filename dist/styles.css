@@ -1,10 +1,12 @@
 @import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Prata&family=Taviraj&display=swap");
 header, footer {
   background-color: #DEEFD6;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, .username, nav {
   color: #697463;
+  font-family: "Prata", serif;
 }
 
 .btn-primary {
@@ -12,9 +14,31 @@ h1, h2, h3, h4 {
   border-color: #697463;
 }
 
-.btn-primary:hover, .btn-primary:disabled {
+.btn-primary:hover, .btn-primary:disabled, .btn-primary:active, .btn-primary:focus {
   background-color: rgba(105, 116, 99, 0.5960784314);
   border-color: rgba(105, 116, 99, 0.5960784314);
+}
+
+.img-thumbnail {
+  max-height: 30px;
+}
+
+.username {
+  padding-left: 0px;
+  font-weight: bold;
+}
+
+@media (max-width: 800px) {
+  .profile-on-md {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .hidden-mobile {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

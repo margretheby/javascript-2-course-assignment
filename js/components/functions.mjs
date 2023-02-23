@@ -155,7 +155,7 @@ function displayPostsOnPage(post) {
     }
 }
 
-
+// Search posts function
 function searchPosts(posts) {
     searchForm.onkeyup = function (event) {
         const searchValue = event.target.value.trim().toLowerCase();
@@ -168,6 +168,7 @@ function searchPosts(posts) {
     }
 }
 
+// Display the search 
 function displaySearchResult(posts) {
     postsContainer.innerHTML = "";
     posts.forEach(function (post) {
@@ -226,7 +227,6 @@ function displaySearchResult(posts) {
 }
 
 // Create post function
-
 export function setCreatePostListener() {
     createPostForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -291,6 +291,7 @@ async function updatePost(post) {
     }
 }
 
+// Fetch and display a specific post
 export async function fetchSpecificPost() {
     try {
         const token = localStorage.getItem("accessToken");

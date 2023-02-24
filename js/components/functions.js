@@ -1,108 +1,142 @@
-import { createAccountForm, createAccountUrl, loginForm, loginUrl, loginError, postsUrl, postsContainer, createPostForm, postContainer, params, postID, postIdUrl, searchForm, updateBody, updateMedia, updateTitle, deletePostButton, logOut } from "./variables.mjs";
+import {
+  createAccountForm,
+  createAccountUrl,
+  createAccountMessage,
+  loginForm,
+  loginUrl,
+  loginError,
+  postsUrl,
+  postsContainer,
+  createPostForm,
+  postContainer,
+  params,
+  postID,
+  postIdUrl,
+  searchForm,
+  updateBody,
+  updateMedia,
+  updateTitle,
+  deletePostButton,
+  logOut,
+} from "./variables.js";
 
 // ------------------------- ALL PAGES
 // Log out
 export function setLogOut() {
-    logOut.addEventListener("click", (event) => {
-        localStorage.clear();
-    })
+  logOut.addEventListener("click", (event) => {
+    localStorage.clear();
+  });
 }
 
 // ------------------------- CREATE ACCOUNT PAGE
 // Create account function
 export function setCreateAccountListener() {
-    createAccountForm.addEventListener("submit", (event) => {
-        event.preventDefault()
-        const createAccountForm = event.target;
-        const formData = new FormData(createAccountForm);
-        const profile = Object.fromEntries(formData.entries());
-        console.log(profile);
+  createAccountForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const createAccountForm = event.target;
+    const formData = new FormData(createAccountForm);
+    const profile = Object.fromEntries(formData.entries());
+    console.log(profile);
 
-        createAccount(profile);
-    });
+    createAccount(profile);
+  });
 }
 
 // Send the registered account to the API
 async function createAccount(profile) {
-    try {
-        const accountData = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(profile),
-        };
+  try {
+    const accountData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profile),
+    };
 
-        const response = await fetch(createAccountUrl, accountData)
-        const result = await response.json()
-        console.log(result)
-
-    } catch(error) {
-        console.log(error);
-    }
+    const response = await fetch(createAccountUrl, accountData);
+    const result = await response.json();
+    console.log(result);
+    displayMessage(result);
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+// Display message for successfull registration of new account
+function displayMessage(message) {
+  if (message !== true) {
+    createAccountMessage.innerHTML = `Yay! You're account has been registrered, <a href="login.html" class="link">please log in here.</a>`;
+  } else {
+    createAccountMessage.innerHTML = `Something went wrong. Please try again.`;
+  }
+}
+
+
 
 // ------------------------- LOGIN PAGE
 export function setLoginAccount() {
-    loginForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const loginForm = event.target;
-        const formData = new FormData(loginForm);
-        const loginInfo = Object.fromEntries(formData.entries());
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const loginForm = event.target;
+    const formData = new FormData(loginForm);
+    const loginInfo = Object.fromEntries(formData.entries());
 
-        loginAccount(loginUrl, loginInfo);
-    })
-
+    loginAccount(loginUrl, loginInfo);
+  });
 }
-
 async function loginAccount(url, data) {
-    try {
-        const accountData = {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        };
-        const response = await fetch(url, accountData);
-        const result = await response.json();
-        const accessToken = result.accessToken;
+  try {
+    const accountData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    const response = await fetch(url, accountData);
+    const result = await response.json();
+    const accessToken = result.accessToken;
 
-        localStorage.setItem("accessToken", accessToken)
-    } catch (error) {
-        console.log(error);
-    }
+    localStorage.setItem("accessToken", accessToken);
+  } catch (error) {
+    console.log(error);
+  }
 }
-
 
 // ------------------------- INDEX PAGE
 
 // API call to posts
 export async function fetchPostsWithToken() {
-    try {
-        const token = localStorage.getItem("accessToken");
-        const getPosts = {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            },
-        };
-        
-        const response = await fetch(postsUrl, getPosts);
-        const result = await response.json();
+  try {
+    const token = localStorage.getItem("accessToken");
+    const getPosts = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-        displayPostsOnPage(result);
-        searchPosts(result);
-    } catch (error) {
-        console.log(error)
-    }
+    const response = await fetch(postsUrl, getPosts);
+    const result = await response.json();
+
+    displayPostsOnPage(result);
+    searchPosts(result);
+  } catch (error) {
+    console.log(error);
+  }
 }
+
 // function to display posts
+/**
+ * Display posts on page
+ * @param {object} post
+ * @returns {object} displays all posts
+ */
 function displayPostsOnPage(post) {
-    for (let i = 0; i < post.length; i++) {
-        if (post[i].media) {
-            postsContainer.innerHTML += `
+  for (let i = 0; i < post.length; i++) {
+    if (post[i].media) {
+      postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
                 <div class="col-xl-6 col-lg-10 col-md-12 p-0">
                     <div class="border p-0">
@@ -127,8 +161,8 @@ function displayPostsOnPage(post) {
                     </div>
                 </div>
             </div>`;
-        } else {
-            postsContainer.innerHTML += `
+    } else {
+      postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
                 <div class="col-xl-6 col-lg-10 col-md-12 p-0">
                     <div class="border p-0">
@@ -150,30 +184,29 @@ function displayPostsOnPage(post) {
                     </div>
                 </div>
             </div>`;
-        }
-
     }
+  }
 }
 
 // Search posts function
 function searchPosts(posts) {
-    searchForm.onkeyup = function (event) {
-        const searchValue = event.target.value.trim().toLowerCase();
-        const filteredSearch = posts.filter(function (posts) {
-            if (posts.title.toLowerCase().includes(searchValue)) {
-                return true;
-            }            
-        })
-        displaySearchResult(filteredSearch);
-    }
+  searchForm.onkeyup = function (event) {
+    const searchValue = event.target.value.trim().toLowerCase();
+    const filteredSearch = posts.filter(function (posts) {
+      if (posts.title.toLowerCase().includes(searchValue)) {
+        return true;
+      }
+    });
+    displaySearchResult(filteredSearch);
+  };
 }
 
-// Display the search 
+// Display the search
 function displaySearchResult(posts) {
-    postsContainer.innerHTML = "";
-    posts.forEach(function (post) {
-        if (post.media) {
-            postsContainer.innerHTML += `
+  postsContainer.innerHTML = "";
+  posts.forEach(function (post) {
+    if (post.media) {
+      postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
                 <div class="col-xl-6 col-lg-10 col-md-12 p-0">
                     <div class="border p-0">
@@ -198,8 +231,8 @@ function displaySearchResult(posts) {
                     </div>
                 </div>
             </div>`;
-        } else {
-            postsContainer.innerHTML += `
+    } else {
+      postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
                 <div class="col-xl-6 col-lg-10 col-md-12 p-0">
                     <div class="border p-0">
@@ -221,99 +254,97 @@ function displaySearchResult(posts) {
                     </div>
                 </div>
             </div>`;
-        }
-
-    })
+    }
+  });
 }
 
 // Create post function
 export function setCreatePostListener() {
-    createPostForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const createPostForm = event.target;
-        const formData = new FormData(createPostForm);
-        const postInfo = Object.fromEntries(formData.entries());
+  createPostForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const createPostForm = event.target;
+    const formData = new FormData(createPostForm);
+    const postInfo = Object.fromEntries(formData.entries());
 
-        createPost(postInfo);
-
-    })
-} 
+    createPost(postInfo);
+  });
+}
 
 async function createPost(post) {
-    try {
-        const token = localStorage.getItem("accessToken")
-        const postData = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(post)
-        }
-        const response = await fetch(postsUrl, postData);
-        const result = await response.json();
-        window.location.href = "index.html";
-    } catch(error) {
-        console.log(error);
-    }
+  try {
+    const token = localStorage.getItem("accessToken");
+    const postData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(post),
+    };
+    const response = await fetch(postsUrl, postData);
+    const result = await response.json();
+    window.location.href = "index.html";
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Update post function
 export function setUpdatePostListener() {
-    const updatePostForm = document.querySelector(".edit-post-form");
-    const deletePostButton = document.querySelector("#btn-delete");
-    updatePostForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const updatePostForm = event.target;
-        const formData = new FormData(updatePostForm);
-        const updatedPostInfo = Object.fromEntries(formData.entries());
+  const updatePostForm = document.querySelector(".edit-post-form");
+  const deletePostButton = document.querySelector("#btn-delete");
+  updatePostForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const updatePostForm = event.target;
+    const formData = new FormData(updatePostForm);
+    const updatedPostInfo = Object.fromEntries(formData.entries());
 
-        updatePost(updatedPostInfo);
-    })
-} 
+    updatePost(updatedPostInfo);
+  });
+}
 
 async function updatePost(post) {
-    try {
-        const token = localStorage.getItem("accessToken")
-        const postData = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(post)
-        }
-        const response = await fetch(postIdUrl, postData)
-        const result = await response.json();
-        location.reload();
-    } catch(error) {
-        console.log(error);
-    }
+  try {
+    const token = localStorage.getItem("accessToken");
+    const postData = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(post),
+    };
+    const response = await fetch(postIdUrl, postData);
+    const result = await response.json();
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Fetch and display a specific post
 export async function fetchSpecificPost() {
-    try {
-        const token = localStorage.getItem("accessToken");
-        const postData = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-        }
-        const response = await fetch(postIdUrl, postData);
-        const post = await response.json();
-        console.log(post);
-        displaySpecificPost(post);
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    const token = localStorage.getItem("accessToken");
+    const postData = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(postIdUrl, postData);
+    const post = await response.json();
+    console.log(post);
+    displaySpecificPost(post);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function displaySpecificPost(post) {
-        if (post.media) {
-            postContainer.innerHTML += `
+  if (post.media) {
+    postContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
                 <div class="col-xl-6 col-lg-10 col-md-12">
                     <div class="border">
@@ -340,8 +371,8 @@ function displaySpecificPost(post) {
                     </div>
                 </div>
             </div>`;
-        } else {
-            postContainer.innerHTML += `
+  } else {
+    postContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
                 <div class="col-xl-6 col-lg-10 col-md-12">
                     <div class="border">
@@ -364,9 +395,8 @@ function displaySpecificPost(post) {
                     </div>
                 </div>
             </div>`;
-    }
-    updateMedia.value = `${post.media}`
-    updateTitle.value = `${post.title}`
-    updateBody.value = `${post.body}`
+  }
+  updateMedia.value = `${post.media}`;
+  updateTitle.value = `${post.title}`;
+  updateBody.value = `${post.body}`;
 }
-

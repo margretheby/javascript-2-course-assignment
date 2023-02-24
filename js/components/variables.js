@@ -5,6 +5,7 @@ export const BASE_URL = "https://api.noroff.dev/api/v1/social/"
 export const createAccountUrl = BASE_URL + "auth/register"
 export const createAccountForm = document.querySelector("#create-account");
 export const postMethod = "post";
+export const createAccountMessage = document.querySelector(".create-account-message");
 
 // Login page
 export const loginUrl = BASE_URL + "auth/login"

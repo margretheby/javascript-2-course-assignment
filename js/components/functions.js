@@ -98,6 +98,9 @@ async function loginAccount(url, data) {
     const accessToken = result.accessToken;
 
     localStorage.setItem("accessToken", accessToken);
+    if (accessToken) {
+      window.location.href = "index.html";
+    }
   } catch (error) {
     console.log(error);
   }
@@ -205,6 +208,8 @@ function searchPosts(posts) {
 function displaySearchResult(posts) {
   postsContainer.innerHTML = "";
   posts.forEach(function (post) {
+    const { title, media, body, id, created, tags } = post;
+    const { avatar, name } = post.author
     if (post.media) {
       postsContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
@@ -213,19 +218,19 @@ function displaySearchResult(posts) {
                         <div class="container m-0 pe-0">
                             <div class="row d-flex align-items-center">
                                 <div class="col-1 m-0 p-0">
-                                    <img src="${post.author.avatar}" class="img-thumbnail">
+                                    <img src="${avatar}" class="img-thumbnail">
                                 </div>
                                 <div class="col-11">
-                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
+                                    <p class="pb-0 mb-0 username">${name}</p>
                                 </div>
                             <div class="row p-0">
-                                <img src="${post.media}" alt="Image for the post: ${post.title}" class="pe-0">
+                                <img src="${media}" alt="Image for the post: ${title}" class="pe-0">
                             </div>
                             <div class="row">
-                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
-                                <p class="mt-2 ps-4">${post.body}</p>
-                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
-                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            <a href="specific-post.html?postID=${id}" class="nav-link ps-4"><h2 class="mt-2">${title}</h2></a>
+                                <p class="mt-2 ps-4">${body}</p>
+                                <p class="mt-2 ps-4">Posted: ${created}</p>
+                                <p class="mt-0 ps-4">Tags: ${tags}</p>
                             </div>
                         </div>
                     </div>
@@ -239,16 +244,16 @@ function displaySearchResult(posts) {
                         <div class="container m-0 pe-0">
                             <div class="row d-flex align-items-center">
                                 <div class="col-1 m-0 p-0">
-                                    <img src="${post.author.avatar}" class="img-thumbnail">
+                                    <img src="${avatar}" class="img-thumbnail">
                                 </div>
                                 <div class="col-11">
-                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
+                                    <p class="pb-0 mb-0 username">${name}</p>
                                 </div>
                             <div class="row">
-                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
-                                <p class="mt-2 ps-4">${post.body}</p>
-                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
-                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${title}</h2></a>
+                                <p class="mt-2 ps-4">${body}</p>
+                                <p class="mt-2 ps-4">Posted: ${created}</p>
+                                <p class="mt-0 ps-4">Tags: ${tags}</p>
                             </div>
                         </div>
                     </div>
@@ -343,6 +348,9 @@ export async function fetchSpecificPost() {
 }
 
 function displaySpecificPost(post) {
+  const { title, media, body, id, created, tags } = post;
+  const { avatar, name } = post.author
+  document.title = `${title} | SocialClub`
   if (post.media) {
     postContainer.innerHTML += `
             <div class="row d-flex justify-content-center my-5">
@@ -351,20 +359,20 @@ function displaySpecificPost(post) {
                         <div class="container m-0">
                             <div class="row d-flex align-items-center">
                                 <div class="col-1 m-0 p-0">
-                                    <img src="${post.author.avatar}" class="img-thumbnail">
+                                    <img src="${avatar}" class="img-thumbnail">
                                 </div>
                                 <div class="col-11">
-                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
+                                    <p class="pb-0 mb-0 username">${name}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <img src="${post.media}" alt="Image for the post: ${post.title}" class="p-0">
+                                <img src="${media}" alt="Image for the post: ${title}" class="p-0">
                             </div>
                             <div class="row">
-                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
-                                <p class="mt-2 ps-4">${post.body}</p>
-                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
-                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            <a href="specific-post.html?postID=${id}" class="nav-link ps-4"><h2 class="mt-2">${title}</h2></a>
+                                <p class="mt-2 ps-4">${body}</p>
+                                <p class="mt-2 ps-4">Posted: ${created}</p>
+                                <p class="mt-0 ps-4">Tags: ${tags}</p>
                                 
                             </div>
                         </div>
@@ -379,24 +387,24 @@ function displaySpecificPost(post) {
                         <div class="container m-0">
                             <div class="row d-flex align-items-center">
                                 <div class="col-1 m-0 p-0">
-                                    <img src="${post.author.avatar}" class="img-thumbnail">
+                                    <img src="${avatar}" class="img-thumbnail">
                                 </div>
                                 <div class="col-11">
-                                    <p class="pb-0 mb-0 username">${post.author.name}</p>
+                                    <p class="pb-0 mb-0 username">${name}</p>
                                 </div>
                             </div>
                             <div class="row">
-                            <a href="specific-post.html?postID=${post.id}" class="nav-link ps-4"><h2 class="mt-2">${post.title}</h2></a>
-                                <p class="mt-2 ps-4">${post.body}</p>
-                                <p class="mt-2 ps-4">Posted: ${post.created}</p>
-                                <p class="mt-0 ps-4">Tags: ${post.tags}</p>
+                            <a href="specific-post.html?postID=${id}" class="nav-link ps-4"><h2 class="mt-2">${title}</h2></a>
+                                <p class="mt-2 ps-4">${body}</p>
+                                <p class="mt-2 ps-4">Posted: ${created}</p>
+                                <p class="mt-0 ps-4">Tags: ${tags}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>`;
   }
-  updateMedia.value = `${post.media}`;
-  updateTitle.value = `${post.title}`;
-  updateBody.value = `${post.body}`;
+  updateMedia.value = `${media}`;
+  updateTitle.value = `${title}`;
+  updateBody.value = `${body}`;
 }

@@ -1,6 +1,7 @@
 import {
   fetchSpecificPost,
   setUpdatePostListener,
+  setLogOut
 } from "./components/functions.js";
 import {
   postIdUrl,
@@ -11,6 +12,7 @@ import {
 
 fetchSpecificPost(postIdUrl);
 setUpdatePostListener();
+setLogOut();
 
 // DELETE POST
 

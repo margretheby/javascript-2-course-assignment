@@ -18,6 +18,10 @@ import {
   updateTitle,
   deletePostButton,
   logOut,
+  allPostsButton,
+  postsWithImagesButton,
+  postsWithoutImagesButton,
+  filterParam
 } from "./variables.js";
 
 // ------------------------- ALL PAGES
@@ -125,6 +129,7 @@ export async function fetchPostsWithToken() {
 
     displayPostsOnPage(result);
     searchPosts(result);
+    filterPosts(result);
   } catch (error) {
     console.log(error);
   }
@@ -187,6 +192,75 @@ function displayPostsOnPage(post) {
                     </div>
                 </div>
             </div>`;
+    }
+  }
+}
+
+// Filter posts
+function filterPosts (post) {
+  postsWithImagesButton.innerHTML = `<a href="index.html?filter=posts_img" class="btn btn-primary me-1">Posts with images</a>`;
+  postsWithoutImagesButton.innerHTML = `<a href="index.html?filter=no_img" class="btn btn-primary me-1">Posts without images</a>`;
+  allPostsButton.innerHTML = `<a href="index.html" class="btn btn-primary me-1">Most recent posts</a>`;
+  
+  if (filterParam === "posts_img") {
+    postsContainer.innerHTML = "";
+    for (let i = 0; i < post.length; i++) {
+      if (post[i].media) {
+      postsContainer.innerHTML += `
+          <div class="row d-flex justify-content-center my-5">
+          <div class="col-xl-6 col-lg-10 col-md-12 p-0">
+              <div class="border p-0">
+                  <div class="container m-0 pe-0">
+                      <div class="row d-flex align-items-center">
+                          <div class="col-1 m-0 p-0">
+                              <img src="${post[i].author.avatar}" class="img-thumbnail">
+                          </div>
+                          <div class="col-11">
+                              <p class="pb-0 mb-0 username">${post[i].author.name}</p>
+                          </div>
+                      <div class="row p-0">
+                          <img src="${post[i].media}" alt="Image for the post: ${post[i].title}" class="pe-0">
+                      </div>
+                      <div class="row">
+                      <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
+                          <p class="mt-2 ps-4">${post[i].body}</p>
+                          <p class="mt-2 ps-4">Posted: ${post[i].created}</p>
+                          <p class="mt-0 ps-4">Tags: ${post[i].tags}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
+    }
+  }
+  if (filterParam === "no_img") {
+    postsContainer.innerHTML = "";
+    for (let i = 0; i < post.length; i++) {
+      if (!post[i].media) {
+      postsContainer.innerHTML += `
+          <div class="row d-flex justify-content-center my-5">
+          <div class="col-xl-6 col-lg-10 col-md-12 p-0">
+              <div class="border p-0">
+                  <div class="container m-0 pe-0">
+                      <div class="row d-flex align-items-center">
+                          <div class="col-1 m-0 p-0">
+                              <img src="${post[i].author.avatar}" class="img-thumbnail">
+                          </div>
+                          <div class="col-11">
+                              <p class="pb-0 mb-0 username">${post[i].author.name}</p>
+                          </div>
+                      <div class="row">
+                      <a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4"><h2 class="mt-2">${post[i].title}</h2></a>
+                          <p class="mt-2 ps-4">${post[i].body}</p>
+                          <p class="mt-2 ps-4">Posted: ${post[i].created}</p>
+                          <p class="mt-0 ps-4">Tags: ${post[i].tags}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>`
+      }
     }
   }
 }

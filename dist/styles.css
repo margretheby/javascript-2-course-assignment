@@ -39,6 +39,12 @@ h1, h2, h3, h4, .username, nav {
   .hidden-mobile {
     display: none;
   }
+  .new-post-search {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: left;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

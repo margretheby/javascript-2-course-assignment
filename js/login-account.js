@@ -1,4 +1,4 @@
-import { setLoginAccount } from "./components/functions.js";
+import { setLoginAccount } from "./functions/login.js";
 
 setLoginAccount();
 const token = localStorage.getItem("accessToken");

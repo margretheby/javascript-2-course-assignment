@@ -1,8 +1,5 @@
-import {
-  fetchPostsWithToken,
-  setCreatePostListener,
-  setLogOut,
-} from "./components/functions.js";
+import { fetchPostsWithToken, setCreatePostListener } from "./functions/index.js";
+import { setLogOut } from "./functions/logout.js";
 
 fetchPostsWithToken();
 setCreatePostListener();

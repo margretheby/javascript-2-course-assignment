@@ -1,14 +1,13 @@
 import {
   fetchSpecificPost,
   setUpdatePostListener,
-  setLogOut
-} from "./components/functions.js";
+} from "./functions/specific-post.js";
+import { postID, postIdUrl } from "./api/contants.js";
 import {
-  postIdUrl,
   deletePostButton,
-  postID,
-  postContainer,
+  postContainer
 } from "./components/variables.js";
+import { setLogOut } from "./functions/logout.js";
 
 fetchSpecificPost(postIdUrl);
 setUpdatePostListener();

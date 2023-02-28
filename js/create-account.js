@@ -1,3 +1,3 @@
-import { setCreateAccountListener } from "./components/functions.js";
+import { setCreateAccountListener } from "./functions/create-account.js";
 
 setCreateAccountListener();

@@ -8,7 +8,6 @@ export function setCreateAccountListener() {
       const createAccountForm = event.target;
       const formData = new FormData(createAccountForm);
       const profile = Object.fromEntries(formData.entries());
-      console.log(profile);
   
       createAccount(profile);
     });
@@ -27,7 +26,6 @@ export function setCreateAccountListener() {
   
       const response = await fetch(createAccountUrl, accountData);
       const result = await response.json();
-      console.log(result);
       displayMessage(result);
     } catch (error) {
       console.log(error);

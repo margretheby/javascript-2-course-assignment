@@ -47,7 +47,6 @@ export function setUpdatePostListener() {
       };
       const response = await fetch(postIdUrl, postData);
       const post = await response.json();
-      console.log(post);
      createHtml(post);
     } catch (error) {
       console.log(error);

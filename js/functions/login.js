@@ -7,7 +7,6 @@ export function setLoginAccount() {
       const loginForm = event.target;
       const formData = new FormData(loginForm);
       const loginInfo = Object.fromEntries(formData.entries());
-      console.log(loginInfo);
   
       loginAccount(loginUrl, loginInfo);
     });

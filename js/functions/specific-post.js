@@ -1,10 +1,11 @@
-import { createHtml } from "./create-html.js";
+import { createHtmlForPost } from "./create-html.js";
 import { postIdUrl } from "../api/contants.js";
+import { profileUrl } from "../api/contants.js";
+import { authButtonsContainer } from "../components/variables.js";
 
 // Update post function
 export function setUpdatePostListener() {
     const updatePostForm = document.querySelector(".edit-post-form");
-    const deletePostButton = document.querySelector("#btn-delete");
     updatePostForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const updatePostForm = event.target;
@@ -28,6 +29,7 @@ export function setUpdatePostListener() {
       };
       const response = await fetch(postIdUrl, postData);
       const result = await response.json();
+      
       location.reload();
     } catch (error) {
       console.log(error);
@@ -47,8 +49,24 @@ export function setUpdatePostListener() {
       };
       const response = await fetch(postIdUrl, postData);
       const post = await response.json();
-     createHtml(post);
+
+      createHtmlForPost(post);
+      isProfileLinkedToPost(post);
+
     } catch (error) {
       console.log(error);
     }
   }
+
+// connect profile to post
+export function isProfileLinkedToPost (post) {
+  const profileName = localStorage.getItem("profileName");
+  const postAuthor = post.author.name;
+
+  if (profileName === postAuthor) {
+    authButtonsContainer.style.display = "block";
+  } else {
+    authButtonsContainer.style.display = "none";
+  }
+
+}

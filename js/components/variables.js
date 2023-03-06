@@ -20,16 +20,19 @@ export const postsWithImagesButton = document.querySelector(".posts-img");
 export const postsWithoutImagesButton = document.querySelector(".posts-no-img");
 export const allPostsButton = document.querySelector(".all-posts");
 
-//------------- Specific post page
+// ------------- Specific post page
 export const postContainer = document.querySelector(".specific-post-container");
 export const updatePostButton = document.querySelector(".btn-update-post");
 export const deletePostButton = document.querySelector("#btn-delete-post");
+export const authButtonsContainer = document.querySelector(".auth-buttons-container");
 
 // Update post variables
 export const updateMedia = document.querySelector("#update-media");
 export const updateTitle = document.querySelector("#update-title");
 export const updateBody = document.querySelector("#update-body");
 
+// ------------- Profile page
+export const profileContainer = document.querySelector(".profile-container");
 
 
 

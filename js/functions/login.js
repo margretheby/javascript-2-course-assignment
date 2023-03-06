@@ -29,8 +29,10 @@ export function setLoginAccount() {
       const response = await fetch(url, accountData);
       const result = await response.json();
       const accessToken = result.accessToken;
+      const profileName = result.name;
   
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("profileName", profileName);
       if (accessToken) {
         window.location.href = "index.html";
       } 

@@ -10,6 +10,9 @@ export const loginUrl = BASE_URL + "auth/login"
 // ------------- Index page
 export const postsUrl = BASE_URL + "posts?_author=true";
 
+// ------------- Specific post profile
+export const profileUrl = BASE_URL + "profiles/";
+
 // Creating URL Params
 export const params = new URLSearchParams(window.location.search);
 export const postID = params.get("postID");

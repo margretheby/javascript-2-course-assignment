@@ -1,6 +1,6 @@
 import {
   fetchSpecificPost,
-  setUpdatePostListener,
+  setUpdatePostListener
 } from "./functions/specific-post.js";
 import { postID, postIdUrl } from "./api/contants.js";
 import {

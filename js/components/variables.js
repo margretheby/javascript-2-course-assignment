@@ -14,6 +14,8 @@ export const loginError = document.querySelector(".login-error");
 export const postsContainer = document.querySelector(".post-container");
 export const createPostForm = document.querySelector(".create-post");
 export const searchForm = document.querySelector(".search-form");
+export const profileNavLink = document.querySelector(".profile-link");
+export const loggedInProfile = localStorage.getItem("profileName");
 
 // Filter buttons
 export const postsWithImagesButton = document.querySelector(".posts-img");
@@ -33,6 +35,7 @@ export const updateBody = document.querySelector("#update-body");
 
 // ------------- Profile page
 export const profileContainer = document.querySelector(".profile-container");
+export const profilePostsButton = document.querySelector(".profile-posts");
 
 
 

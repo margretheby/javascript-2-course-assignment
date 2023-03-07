@@ -5,8 +5,13 @@ import {
     allPostsButton, 
     postsContainer, 
     searchForm, 
-    createPostForm
+    createPostForm,
+    profileNavLink,
+    loggedInProfile
 } from "../components/variables.js";
+
+// profile link
+profileNavLink.innerHTML = `<a href="profile.html?user=${loggedInProfile}" class="nav-link">Profile</a>`;
 
 // API call to posts
 export async function fetchPostsWithToken() {

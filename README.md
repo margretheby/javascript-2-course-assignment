@@ -18,6 +18,8 @@ This assignment was to create a functional social media website. An API was prov
 
 ``` 
 git clone git@github.com:margretheby/javascript-2-course-assignment.git
+npm install bootstrap
+npm install -D sass
 ```
 
 ## Contact

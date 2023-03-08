@@ -5,6 +5,17 @@ A course assignment in the spring of 2023, during the frontend development cours
 
 ## Description
 This assignment was to create a functional social media website. An API was provided, but design was optional.
+Check out my <a href="https://trello.com/b/kTpIAAwy/work-process">Trello board</a> to see how I planned the project. 
+### Requirements
+- User with @noroff.no or @stud.noroff.no email can register profile
+- Registered user can login
+- User can view a post content feed
+- User can filter the post content feed
+- User can search the post content feed
+- User can view a post content item by ID
+- User can create a post content item
+- User can update a post content item
+- User can delete a post content item
 
 ## Built with
 - HTML

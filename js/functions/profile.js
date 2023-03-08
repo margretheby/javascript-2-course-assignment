@@ -2,11 +2,15 @@ import { profileUrl, profileParam, profilePostsUrl } from "../api/contants.js";
 import { createHtmlForProfile } from "../functions/create-html.js"
 import { profilePostsButton, postsContainer } from "../components/variables.js";
 
-console.log(profilePostsUrl)
+
 const token = localStorage.getItem("accessToken");
 
 
 // fetch profile information
+/**
+ * This function fetches the profile information of the logged in user from an API.
+ * createHtmlForProfile(profile) uses the fetched information to create HTML and display profile information.
+ */
 export async function fetchProfileInfo () {
     try {
         const profileName = localStorage.getItem("profileName");
@@ -31,6 +35,10 @@ export async function fetchProfileInfo () {
 // display profile's name on posts button
 profilePostsButton.innerText = `${profileParam}'s posts`;
 
+/**
+* This function fetches the user's posts from an API.
+* displayPostsOnPage(posts) uses the fetched information to create HTML and display the user's posts.
+*/
 export async function fetchProfilesPosts() {
     try {
         const getProfilePosts = {
@@ -43,7 +51,7 @@ export async function fetchProfilesPosts() {
 
         const response = await fetch(profilePostsUrl, getProfilePosts);
         const posts = await response.json();
-        displayPostsOnPage(posts);
+        displayPostsOnProfilePage(posts);
         
     } catch (error) {
         console.log(error);
@@ -51,7 +59,11 @@ export async function fetchProfilesPosts() {
 }
 
 // Create HTML for posts on profile
-function displayPostsOnPage(post) {
+/**
+ * This function creates HTML to display a user's posts based on an object.
+ * @param { array } post An array of object fetched from an API containing specific properties of posts.
+ */
+function displayPostsOnProfilePage(post) {
     for (let i = 0; i < post.length; i++) {
       if (post[i].media) {
         postsContainer.innerHTML += `

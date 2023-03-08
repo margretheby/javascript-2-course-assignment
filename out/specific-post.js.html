@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: specific-post.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,60 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: specific-post.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  fetchSpecificPost,
+  setUpdatePostListener
+} from "./functions/specific-post.js";
+import { postID, postIdUrl } from "./api/contants.js";
+import {
+  deletePostButton,
+  postContainer
+} from "./components/variables.js";
+import { setLogOut } from "./functions/logout.js";
 
+fetchSpecificPost(postIdUrl);
+setUpdatePostListener();
+setLogOut();
 
-    <h3> </h3>
+// DELETE POST
+/**
+ * EventListener to activate the deletePost() function
+ */
+deletePostButton.addEventListener("click", (event) => {
+  deletePost();
+});
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * This function fetches a post's url, and sends information to delete the data attached to the post.
+ */
+async function deletePost() {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const postData = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(postIdUrl, postData);
+    const result = await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

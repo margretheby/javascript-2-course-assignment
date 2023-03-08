@@ -14,11 +14,16 @@ setUpdatePostListener();
 setLogOut();
 
 // DELETE POST
-
+/**
+ * EventListener to activate the deletePost() function
+ */
 deletePostButton.addEventListener("click", (event) => {
   deletePost();
 });
 
+/**
+ * This function fetches a post's url, and sends information to delete the data attached to the post.
+ */
 async function deletePost() {
   try {
     const token = localStorage.getItem("accessToken");

@@ -19,7 +19,7 @@ Check out my <a href="https://trello.com/b/kTpIAAwy/work-process">Trello board</
 
 ## Built with
 - HTML
-- BOOTSTRAP
+- Bootstrap
 - SASS
 - JavaScript
 

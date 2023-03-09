@@ -2,6 +2,9 @@
 // Log out
 export const logOut = document.querySelector(".log-out")
 
+// Access token
+export const token = localStorage.getItem("accessToken");
+
 // ------------- Create account page
 export const createAccountForm = document.querySelector("#create-account");
 export const createAccountMessage = document.querySelector(".create-account-message");

@@ -1,7 +1,7 @@
 import { createHtmlForPost } from "./create-html.js";
 import { postIdUrl } from "../api/contants.js";
 import { profileUrl } from "../api/contants.js";
-import { authButtonsContainer } from "../components/variables.js";
+import { authButtonsContainer, token, postContainer } from "../components/variables.js";
 
 // Update post function
 /**
@@ -27,7 +27,6 @@ export function setUpdatePostListener() {
 */
   async function updatePost(post) {
     try {
-      const token = localStorage.getItem("accessToken");
       const postData = {
         method: "PUT",
         headers: {
@@ -53,7 +52,15 @@ export function setUpdatePostListener() {
 */
   export async function fetchSpecificPost() {
     try {
-      const token = localStorage.getItem("accessToken");
+      if(postIdUrl === "https://api.noroff.dev/api/v1/social/posts/null?_author=true") {
+        postContainer.innerHTML = `<div class="mt-5 pt-5">
+                                      <p>You're post was deleted. You will be sent back to the posts page.</p> 
+                                  </div>`
+        authButtonsContainer.style.display = "none";
+
+        setTimeout(relocateToIndexPage, 5000)
+      };
+
       const postData = {
         method: "GET",
         headers: {
@@ -70,6 +77,11 @@ export function setUpdatePostListener() {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  // Relocate to index page
+  function relocateToIndexPage() {
+    window.location.href = "index.html";
   }
 
 // connect profile to post

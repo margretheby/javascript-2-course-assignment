@@ -7,7 +7,8 @@ import {
     searchForm, 
     createPostForm,
     profileNavLink,
-    loggedInProfile
+    loggedInProfile,
+    token
 } from "../components/variables.js";
 
 // profile link
@@ -22,7 +23,6 @@ profileNavLink.innerHTML = `<a href="profile.html?user=${loggedInProfile}" class
  */
 export async function fetchPostsWithToken() {
     try {
-      const token = localStorage.getItem("accessToken");
       const getPosts = {
         method: "GET",
         headers: {
@@ -280,7 +280,6 @@ export function setCreatePostListener() {
    */
   async function createPost(post) {
     try {
-      const token = localStorage.getItem("accessToken");
       const postData = {
         method: "POST",
         headers: {

@@ -1,9 +1,6 @@
 import { profileUrl, profileParam, profilePostsUrl } from "../api/contants.js";
 import { createHtmlForProfile } from "../functions/create-html.js"
-import { profilePostsButton, postsContainer } from "../components/variables.js";
-
-
-const token = localStorage.getItem("accessToken");
+import { profilePostsButton, postsContainer, token } from "../components/variables.js";
 
 
 // fetch profile information

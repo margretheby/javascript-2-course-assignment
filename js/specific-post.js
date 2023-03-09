@@ -5,13 +5,16 @@ import {
 import { postID, postIdUrl } from "./api/contants.js";
 import {
   deletePostButton,
-  postContainer
+  postContainer,
+  token,
+  authButtonsContainer
 } from "./components/variables.js";
 import { setLogOut } from "./functions/logout.js";
 
 fetchSpecificPost(postIdUrl);
 setUpdatePostListener();
 setLogOut();
+
 
 // DELETE POST
 /**
@@ -26,7 +29,6 @@ deletePostButton.addEventListener("click", (event) => {
  */
 async function deletePost() {
   try {
-    const token = localStorage.getItem("accessToken");
     const postData = {
       method: "DELETE",
       headers: {
@@ -36,6 +38,7 @@ async function deletePost() {
     };
     const response = await fetch(postIdUrl, postData);
     const result = await response.json();
+
   } catch (error) {
     console.log(error);
   }

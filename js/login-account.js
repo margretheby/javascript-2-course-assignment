@@ -1,7 +1,7 @@
 import { setLoginAccount } from "./functions/login.js";
+import { token } from "./components/variables.js"
 
 setLoginAccount();
-const token = localStorage.getItem("accessToken");
 
 if (token) {
   window.location.href = "index.html";

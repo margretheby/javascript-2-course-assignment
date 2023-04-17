@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "sass node_modules/sass/src/styles.scss:dist/styles.css",
-    "watch": "sass --watch src/scss:dist/css & live-server"
+    "watch": "sass --watch src/scss:dist/css & live-server",
+    "docs": "node_modules/jsdoc/jsdoc.js -c conf.json -r"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
     "bootstrap": "^5.2.3"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.2",
     "live-server": "^1.2.2",
     "sass": "^1.58.0"
   }

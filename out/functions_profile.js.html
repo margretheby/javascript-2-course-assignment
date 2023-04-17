@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: functions/profile.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: functions/profile.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { profileUrl, profileParam, profilePostsUrl } from "../api/contants.js";
+import { createHtmlForProfile } from "../functions/create-html.js"
+import { profilePostsButton, postsContainer } from "../components/variables.js";
+
+
+const token = localStorage.getItem("accessToken");
+
+
+// fetch profile information
+/**
+ * This function fetches the profile information of the logged in user from an API.
+ * createHtmlForProfile(profile) uses the fetched information to create HTML and display profile information.
+ */
+export async function fetchProfileInfo () {
+    try {
+        const profileName = localStorage.getItem("profileName");
+        const specificProfileUrl = profileUrl + profileName;
+        const getProfile = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+    
+        const response = await fetch(specificProfileUrl, getProfile);
+        const profile = await response.json();
+
+        createHtmlForProfile(profile);
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// display profile's name on posts button
+profilePostsButton.innerText = `${profileParam}'s posts`;
+
+/**
+* This function fetches the user's posts from an API.
+* displayPostsOnPage(posts) uses the fetched information to create HTML and display the user's posts.
+*/
+export async function fetchProfilesPosts() {
+    try {
+        const getProfilePosts = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
+        const response = await fetch(profilePostsUrl, getProfilePosts);
+        const posts = await response.json();
+        displayPostsOnProfilePage(posts);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// Create HTML for posts on profile
+/**
+ * This function creates HTML to display a user's posts based on an object.
+ * @param { array } post An array of object fetched from an API containing specific properties of posts.
+ */
+function displayPostsOnProfilePage(post) {
+    for (let i = 0; i &lt; post.length; i++) {
+      if (post[i].media) {
+        postsContainer.innerHTML += `
+              &lt;div class="row d-flex justify-content-center my-5">
+                  &lt;div class="col-xl-12 col-lg-10 col-md-12 p-0">
+                      &lt;div class="border p-0">
+                          &lt;div class="container m-0 pe-0">
+                              &lt;div class="row d-flex align-items-center">
+                                  &lt;div class="col-1 m-0 p-0">
+                                      &lt;img src="${post[i].author.avatar}" class="img-thumbnail">
+                                  &lt;/div>
+                                  &lt;div class="col-11">
+                                      &lt;p class="pb-0 mb-0 username">${post[i].author.name}&lt;/p>
+                                  &lt;/div>
+                              &lt;div class="row p-0">
+                                  &lt;img src="${post[i].media}" alt="Image for the post: ${post[i].title}" class="pe-0">
+                              &lt;/div>
+                              &lt;div class="row">
+                              &lt;a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4">&lt;h2 class="mt-2">${post[i].title}&lt;/h2>&lt;/a>
+                                  &lt;p class="mt-2 ps-4">${post[i].body}&lt;/p>
+                                  &lt;p class="mt-2 ps-4">Posted: ${post[i].created}&lt;/p>
+                                  &lt;p class="mt-0 ps-4">Tags: ${post[i].tags}&lt;/p>
+                              &lt;/div>
+                          &lt;/div>
+                      &lt;/div>
+                  &lt;/div>
+              &lt;/div>`;
+      } else {
+        postsContainer.innerHTML += `
+              &lt;div class="row d-flex justify-content-center my-5">
+                  &lt;div class="col-xl-12 col-lg-10 col-md-12 p-0">
+                      &lt;div class="border p-0">
+                          &lt;div class="container m-0 pe-0">
+                              &lt;div class="row d-flex align-items-center">
+                                  &lt;div class="col-1 m-0 p-0">
+                                      &lt;img src="${post[i].author.avatar}" class="img-thumbnail">
+                                  &lt;/div>
+                                  &lt;div class="col-11">
+                                      &lt;p class="pb-0 mb-0 username">${post[i].author.name}&lt;/p>
+                                  &lt;/div>
+                              &lt;div class="row">
+                              &lt;a href="specific-post.html?postID=${post[i].id}" class="nav-link ps-4">&lt;h2 class="mt-2">${post[i].title}&lt;/h2>&lt;/a>
+                                  &lt;p class="mt-2 ps-4">${post[i].body}&lt;/p>
+                                  &lt;p class="mt-2 ps-4">Posted: ${post[i].created}&lt;/p>
+                                  &lt;p class="mt-0 ps-4">Tags: ${post[i].tags}&lt;/p>
+                              &lt;/div>
+                          &lt;/div>
+                      &lt;/div>
+                  &lt;/div>
+              &lt;/div>`;
+      }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createHtmlForPost">createHtmlForPost</a></li><li><a href="global.html#createHtmlForProfile">createHtmlForProfile</a></li><li><a href="global.html#createPost">createPost</a></li><li><a href="global.html#deletePost">deletePost</a></li><li><a href="global.html#displayPostsOnPage">displayPostsOnPage</a></li><li><a href="global.html#displayPostsOnProfilePage">displayPostsOnProfilePage</a></li><li><a href="global.html#displaySearchResult">displaySearchResult</a></li><li><a href="global.html#fetchPostsWithToken">fetchPostsWithToken</a></li><li><a href="global.html#fetchProfileInfo">fetchProfileInfo</a></li><li><a href="global.html#fetchProfilesPosts">fetchProfilesPosts</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#isProfileLinkedToPost">isProfileLinkedToPost</a></li><li><a href="global.html#loginAccount">loginAccount</a></li><li><a href="global.html#searchPosts">searchPosts</a></li><li><a href="global.html#setCreatePostListener">setCreatePostListener</a></li><li><a href="global.html#setLogOut">setLogOut</a></li><li><a href="global.html#setLoginAccount">setLoginAccount</a></li><li><a href="global.html#setUpdatePostListener">setUpdatePostListener</a></li><li><a href="global.html#updatePost">updatePost</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Mar 08 2023 11:34:24 GMT+0100 (sentraleuropeisk normaltid)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
